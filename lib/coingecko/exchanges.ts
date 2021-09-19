@@ -55,7 +55,11 @@ export async function Get(page: number, perPage = 10) {
 	console.log(parseInt(res.headers.get('total') as string))
 
 	const exchanges: Summary[] = await res.json()
-	return exchanges
+
+	return exchanges.map(exchange => ({
+		...exchange,
+		image: exchange.image.replace('small', 'large')
+	}))
 }
 
 export async function Details(id: string): Promise<any> {
