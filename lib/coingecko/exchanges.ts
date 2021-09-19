@@ -52,6 +52,8 @@ export async function List(): Promise<string[]> {
 
 export async function Get(page: number, perPage = 10) {
 	const res = await fetch(`${BASE_URL}?per_page=${perPage}&page=${page}`)
+	console.log(parseInt(res.headers.get('total') as string))
+
 	const exchanges: Summary[] = await res.json()
 	return exchanges
 }
@@ -59,7 +61,6 @@ export async function Get(page: number, perPage = 10) {
 export async function Details(id: string): Promise<any> {
 	const res = await fetch(`${BASE_URL}/${id}`)
 	const exchange: Details = await res.json()
-
 	const country = Countries.find(({ name }) => name.common === exchange.country)
 
 	return {

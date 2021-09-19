@@ -1,10 +1,12 @@
 import type { NextPage } from 'next'
-import Link from 'next/link'
+
 import { ExchangeCard } from '../components/ExchangeCard'
+import { Pagination } from '../components/Pagination'
 import { Exchanges } from '../lib/coingecko'
 
 interface Props {
-	exchanges: Exchange[]
+	exchanges: Exchange[],
+	page: number
 }
 
 interface Exchange {
@@ -24,25 +26,16 @@ const Home: NextPage<Props> = ({ exchanges }) => {
 					<ExchangeCard exchange={exchange} key={exchange.id} />
 				))}
 			</ul>
-			<nav>
-				<ul>
-					<li>
-						<Link href="?page=1">
-							<a>1</a>
-						</Link>
-					</li>
-				</ul>
-			</nav>
+			<Pagination current={1} total={306} />
 		</>
 	)
 }
 
-export async function getStaticProps<Props>() {
-	const exchanges = await Exchanges.Get(1)
+Home.getInitialProps = async ({query}) => {
+	const page = parseInt(query.page as string) || 1
+	const exchanges = await Exchanges.Get(page)
 
-	return {
-		props: { exchanges }
-	}
+	return { exchanges, page }
 }
 
 export default Home
