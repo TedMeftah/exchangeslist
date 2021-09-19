@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Link from 'next/link'
 import { ExchangeCard } from '../components/ExchangeCard'
-import { getExchanges } from '../lib/coingeko'
+import { Exchanges } from '../lib/coingecko'
 
 interface Props {
 	exchanges: Exchange[]
@@ -38,7 +38,7 @@ const Home: NextPage<Props> = ({ exchanges }) => {
 }
 
 export async function getStaticProps<Props>() {
-	const exchanges = await getExchanges(1)
+	const exchanges = await Exchanges.Get(1)
 
 	return {
 		props: { exchanges }
