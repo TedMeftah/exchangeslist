@@ -16,17 +16,18 @@ interface Exchange {
 	image: string
 	trust_score: number
 	trust_score_rank: number
+	year_established: number
 }
 
-const Home: NextPage<Props> = ({ exchanges }) => {
+const Home: NextPage<Props> = ({ exchanges, page }) => {
 	return (
 		<>
-			<ul className="grid gap-2 grid-cols-1 grid-cols-2">
+			<ul className="mx-auto max-w-4xl grid p-4 gap-4 grid-cols-1 md:(grid-cols-2)">
 				{exchanges.map((exchange) => (
 					<ExchangeCard exchange={exchange} key={exchange.id} />
 				))}
 			</ul>
-			<Pagination current={1} total={306} />
+			<Pagination key={page} current={page} total={306} />
 		</>
 	)
 }
