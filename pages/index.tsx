@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Link from 'next/link'
+import { getExchanges } from '../lib/coingeko'
 
 const Home: NextPage = ({ exchanges }) => {
 	return (
@@ -29,12 +30,7 @@ const Home: NextPage = ({ exchanges }) => {
 }
 
 export async function getStaticProps() {
-	const page = 1
-	const res = await fetch(
-		`https://api.coingecko.com/api/v3/exchanges?per_page=10&page=${page}`
-	)
-
-	const exchanges = await res.json()
+	const exchanges = await getExchanges(1)
 
 	return {
 		props: { exchanges }

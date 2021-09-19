@@ -1,10 +1,11 @@
 import type { NextPage } from 'next'
 import Link from 'next/link'
+import { getExchangeDetails, getExchangesIDs } from '../../lib/coingeko'
 
 const Exchange: NextPage = ({ exchange }) => {
 	return (
 		<>
-        	<nav className="mb-8">
+			<nav className="mb-8">
 				<ul>
 					<li>
 						<Link href="/">
@@ -13,19 +14,18 @@ const Exchange: NextPage = ({ exchange }) => {
 					</li>
 				</ul>
 			</nav>
-            <img src={exchange.image} />
+			<img src={exchange.image} />
 			<h3>{exchange.name}</h3>
 			<h3>{exchange.year_established}</h3>
-            <span>{exchange.country}</span>
-            <p>{exchange.description}</p>
+			<span>{exchange.country}</span>
+			<p>{exchange.description}</p>
 		</>
 	)
 }
 
 export async function getStaticProps({ params }) {
-	const res = await fetch(`https://api.coingecko.com/api/v3/exchanges/${params.exchange}`)
 
-	const exchange = await res.json()
+    const exchange = await getExchangeDetails(params.exchange)
 
 	return {
 		props: { exchange }
@@ -33,11 +33,10 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-	const res = await fetch(`https://api.coingecko.com/api/v3/exchanges/list`)
-	const exchanges = await res.json()
+    let ids = await getExchangesIDs()
 	return {
-		paths: exchanges.map(({ id }) => ({ params: { exchange: id } })),
-        fallback: true
+		paths: ids.map(id => ({ params: { exchange: id } })),
+		fallback: true
 	}
 }
 
