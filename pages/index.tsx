@@ -1,28 +1,27 @@
 import type { NextPage } from 'next'
 import Link from 'next/link'
+import { ExchangeCard } from '../components/ExchangeCard'
 import { getExchanges } from '../lib/coingeko'
 
 interface Props {
-	exchanges: Exchange[];
+	exchanges: Exchange[]
 }
 
 interface Exchange {
-	id: string,
+	id: string
 	name: string
+	country: string
+	image: string
+	trust_score: number
+	trust_score_rank: number
 }
 
 const Home: NextPage<Props> = ({ exchanges }) => {
 	return (
 		<>
-			<ul>
+			<ul className="grid gap-2 grid-cols-1 grid-cols-2">
 				{exchanges.map((exchange) => (
-					<li key={exchange.id}>
-						<h3>
-							<Link href={`/exchanges/${exchange.id}`}>
-								<a>{exchange.name}</a>
-							</Link>
-						</h3>
-					</li>
+					<ExchangeCard exchange={exchange} key={exchange.id} />
 				))}
 			</ul>
 			<nav>
