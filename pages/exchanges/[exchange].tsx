@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Exchanges } from '../../lib/coingecko'
 
@@ -18,6 +19,14 @@ interface Props {
 }
 
 const ExchangePage: NextPage<Props> = ({ exchange }) => {
+    const router = useRouter()
+
+  // If the page is not yet generated, this will be displayed
+  // initially until getStaticProps() finishes running
+    if (router.isFallback) {
+        return <div>Loading...</div>
+    }
+    
 	return (
 		<>
 			<nav className="mb-8">
