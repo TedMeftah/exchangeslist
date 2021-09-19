@@ -1,3 +1,6 @@
+import Countries from 'world-countries'
+
+
 type ExchangesListResponse = { id: string; name: string }
 export async function getExchangesIDs(): Promise<string[]> {
 	const res = await fetch(`https://api.coingecko.com/api/v3/exchanges/list`)
@@ -30,7 +33,16 @@ export async function getExchangeDetails(id: string): Promise<any> {
 	const res = await fetch(`https://api.coingecko.com/api/v3/exchanges/${id}`)
 	const exchange: ExchangeDetailsResponse = await res.json()
 
-	return exchange
+	const country = Countries.find(({ name }) => name.common === exchange.country)
+
+	return {
+        ...exchange,
+        country: {
+            name: country?.name.common,
+            code: country?.cca2,
+            position: country?.latlng
+        }
+    }
 }
 
 

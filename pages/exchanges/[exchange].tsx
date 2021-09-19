@@ -17,7 +17,9 @@ const Exchange: NextPage = ({ exchange }) => {
 			<img src={exchange.image} />
 			<h3>{exchange.name}</h3>
 			<h3>{exchange.year_established}</h3>
-			<span>{exchange.country}</span>
+			<span>{exchange.country.code}</span>
+			<span>{exchange.country.name}</span>
+			<span>{exchange.country.position}</span>
 			<p>{exchange.description}</p>
 		</>
 	)
