@@ -2,7 +2,24 @@ import type { NextPage } from 'next'
 import Link from 'next/link'
 import { getExchangeDetails, getExchangesIDs } from '../../lib/coingeko'
 
-const Exchange: NextPage = ({ exchange }) => {
+interface Props {
+	exchange: Exchange
+}
+
+interface Exchange {
+	id: string
+	name: string
+	image: string
+	year_established: string
+	description: string
+	country: {
+		code: string
+		name: string
+		position: [number, number]
+	}
+}
+
+const Exchange: NextPage<Props> = ({ exchange }) => {
 	return (
 		<>
 			<nav className="mb-8">
@@ -25,9 +42,8 @@ const Exchange: NextPage = ({ exchange }) => {
 	)
 }
 
-export async function getStaticProps({ params }) {
-
-    const exchange = await getExchangeDetails(params.exchange)
+export async function getStaticProps<Props>(context: {params: any}) {
+	const exchange = await getExchangeDetails(context.params.exchange)
 
 	return {
 		props: { exchange }
@@ -35,9 +51,9 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-    let ids = await getExchangesIDs()
+	let ids = await getExchangesIDs()
 	return {
-		paths: ids.map(id => ({ params: { exchange: id } })),
+		paths: ids.map((id) => ({ params: { exchange: id } })),
 		fallback: true
 	}
 }

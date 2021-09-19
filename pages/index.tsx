@@ -2,7 +2,16 @@ import type { NextPage } from 'next'
 import Link from 'next/link'
 import { getExchanges } from '../lib/coingeko'
 
-const Home: NextPage = ({ exchanges }) => {
+interface Props {
+	exchanges: Exchange[];
+}
+
+interface Exchange {
+	id: string,
+	name: string
+}
+
+const Home: NextPage<Props> = ({ exchanges }) => {
 	return (
 		<>
 			<ul>
@@ -29,7 +38,7 @@ const Home: NextPage = ({ exchanges }) => {
 	)
 }
 
-export async function getStaticProps() {
+export async function getStaticProps<Props>() {
 	const exchanges = await getExchanges(1)
 
 	return {
