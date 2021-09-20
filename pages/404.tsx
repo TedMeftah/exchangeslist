@@ -1,8 +1,12 @@
 import type { NextPage } from 'next'
+import ErrorPage from '../components/ErrorPage'
 
 const NotFound: NextPage = () => {
 	return (
-		<h1>Page Not Found</h1>
+		<ErrorPage
+			title="Page Not Found"
+			message="The page you are looking for is not found"
+		/>
 	)
 }
 

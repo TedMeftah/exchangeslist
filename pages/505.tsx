@@ -1,9 +1,13 @@
 import type { NextPage } from 'next'
+import ErrorPage from '../components/ErrorPage'
 
-const ServerError: NextPage = () => {
+const NotFound: NextPage = () => {
 	return (
-		<h1>Server Error</h1>
+		<ErrorPage
+			title="Server Error"
+			message="Something went wrong on our end"
+		/>
 	)
 }
 
-export default ServerError
+export default NotFound
