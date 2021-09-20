@@ -12,10 +12,10 @@ interface Props {
 		id: string
 		name: string
 		image: string
-        url: string
+		url: string
 		year_established: string
 		description: string
-        links: SocialNetworks
+		links: SocialNetworks
 		country: {
 			code: string
 			name: string
@@ -59,20 +59,22 @@ const ExchangePage: NextPage<Props> = ({ exchange }) => {
 									className="h-5 mr-2 -ml-1 text-gray-400 w-5"
 									aria-hidden="true"
 								/>
-                                <Link href={exchange.url}>
-                                    <a>Visit Now</a>
-                                </Link>
+								<Link href={exchange.url}>
+									<a>Visit Now</a>
+								</Link>
 							</button>
-                            <Exchange.SocialLinks links={exchange.links} />
+							<Exchange.SocialLinks links={exchange.links} />
 						</div>
 					</div>
 				</div>
 				<div className="flex-1 mt-6 min-w-0 hidden sm:block md:hidden">
 					<h1 className="font-bold text-2xl text-gray-900 truncate">{exchange.name}</h1>
 				</div>
-                <div>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit dolorem saepe modi sapiente nostrum, aliquam sit. Accusamus quis corrupti autem nam delectus libero, quaerat reprehenderit repudiandae, voluptas iste ex iusto.
-                </div>
+				<div>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit dolorem saepe
+					modi sapiente nostrum, aliquam sit. Accusamus quis corrupti autem nam delectus
+					libero, quaerat reprehenderit repudiandae, voluptas iste ex iusto.
+				</div>
 			</div>
 		</div>
 	)
@@ -84,8 +86,8 @@ export async function getStaticProps<Props>(context: { params: any }) {
 		return {
 			props: { exchange }
 		}
-	} catch (e) {
-		console.log('details')
+	} catch {
+		return { notFound: true }
 	}
 }
 
