@@ -6,23 +6,13 @@ import { Exchanges } from '../data/coingecko'
 import useRouterStatus from '../hooks/useRouterStatus'
 
 interface Props {
-	exchanges: Exchange[]
+	exchanges: ExchangeSummary[]
 	page: number
 	limit: number
 	total: number
 }
 
-interface Exchange {
-	id: string
-	name: string
-	country: string
-	image: string
-	trust_score: number
-	trust_score_rank: number
-	year_established: number
-}
-
-const Home: NextPage<Props> = ({ exchanges, page, limit, total }) => {
+const HomePage: NextPage<Props> = ({ exchanges, page, limit, total }) => {
 	const { isLoading, isError, error } = useRouterStatus()
 
 	if (isError) {
@@ -45,7 +35,7 @@ const Home: NextPage<Props> = ({ exchanges, page, limit, total }) => {
 	)
 }
 
-Home.getInitialProps = async ({ query }) => {
+HomePage.getInitialProps = async ({ query }) => {
 	try {
 		const page = parseInt(query.page as string) || 1
 		return await Exchanges.Get(page)
@@ -54,4 +44,4 @@ Home.getInitialProps = async ({ query }) => {
 	}
 }
 
-export default Home
+export default HomePage

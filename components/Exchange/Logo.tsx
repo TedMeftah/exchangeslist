@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
 interface Props {
-	src: string
+	src?: string
 	alt: string
 	className?: string
 }
@@ -14,7 +14,9 @@ export default function Logo({ src, alt, className }: Props) {
 			</mask>
 			<circle fill="white" mask="url(#mask)" cx="50" cy="50" r="49" />
 			<foreignObject mask="url(#mask)" x="0" y="0" width="100%" height="100%">
-				<Image className="rounded-full" src={src} alt={alt} width={100} height={100} />)
+				{src && (
+					<Image className="rounded-full" src={src} alt={alt} width={100} height={100} />
+				)}
 			</foreignObject>
 			<circle
 				strokeOpacity="0.4"

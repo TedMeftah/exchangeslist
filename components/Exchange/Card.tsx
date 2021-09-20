@@ -4,18 +4,8 @@ import { GlobeAltIcon } from '@heroicons/react/solid'
 
 import Logo from './Logo'
 
-interface Exchange {
-	id: string
-	name: string
-	country: string
-	image: string
-	trust_score: number
-	trust_score_rank: number
-	year_established: number
-}
-
 interface Props {
-	exchange: Exchange
+	exchange: ExchangeSummary
 }
 
 export default function ExchangeCard({ exchange }: Props) {
@@ -32,12 +22,12 @@ export default function ExchangeCard({ exchange }: Props) {
 					<p className="flex text-sm text-gray-400 items-center">
 						{exchange.country && <GlobeAltIcon className="h-4 mr-1 w-4" />}
 						{exchange.country}
-						{exchange.year_established && exchange.country && ', '}
-						{exchange.year_established}
+						{exchange.yearEstablished && exchange.country && ', '}
+						{exchange.yearEstablished}
 					</p>
 				</div>
 				<span className="rank good">
-					#{exchange.trust_score_rank.toString().padStart(3, '0')}
+					#{exchange.rank.toString().padStart(3, '0')}
 				</span>
 			</li>
 			<style jsx>{`

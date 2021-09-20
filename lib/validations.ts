@@ -1,8 +1,6 @@
+/**
+ * Check if a string is a URL, assume it is if it starts with `https://` or `http://`
+ */
 export function isURL(string: string): boolean {
-	try {
-		const url = new URL(string)
-		return url.protocol === 'http:' || url.protocol === 'https:'
-	} catch (_) {
-		return false
-	}
+	return string.startsWith('https://') || string.startsWith('http://')
 }
