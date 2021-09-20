@@ -36,7 +36,6 @@ export async function Get(page: number, limit = 10) {
 				name: exchange.name,
 				rank: exchange.trust_score_rank,
 				country: exchange.country,
-				yearEstablished: exchange.year_established,
 				image: sanitizeImageURL(exchange.image)
 			})
 		)

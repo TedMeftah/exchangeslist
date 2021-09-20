@@ -31,7 +31,6 @@ interface ExchangeSummary {
 	id: string
 	name: string
 	image?: string
-	yearEstablished?: number
 	country?: string
 	rank: number
 }

@@ -31,7 +31,9 @@ const HomePage: NextPage<Props> = ({ exchanges, page, limit, total }) => {
 			</Head>
 			<ul>
 				{exchanges.map((exchange) => (
-					<Exchange.Summary exchange={exchange} key={exchange.id} />
+					<li key={exchange.id}>
+						<Exchange.Summary exchange={exchange} />
+					</li>
 				))}
 			</ul>
 			<Pagination key={page} current={page} total={total} />
