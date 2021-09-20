@@ -1,11 +1,11 @@
 import type { NextPage } from 'next'
 
-import { ExchangeCard } from '../components/ExchangeCard'
+import Exchange from '../components/Exchange'
 import { Pagination } from '../components/Pagination'
-import { Exchanges } from '../lib/coingecko'
+import { Exchanges } from '../data/coingecko'
 
 interface Props {
-	exchanges: Exchange[],
+	exchanges: Exchange[]
 	page: number
 }
 
@@ -24,7 +24,7 @@ const Home: NextPage<Props> = ({ exchanges, page }) => {
 		<>
 			<ul className="mx-auto max-w-4xl grid p-4 gap-4 grid-cols-1 md:(grid-cols-2)">
 				{exchanges.map((exchange) => (
-					<ExchangeCard exchange={exchange} key={exchange.id} />
+					<Exchange.Card exchange={exchange} key={exchange.id} />
 				))}
 			</ul>
 			<Pagination key={page} current={page} total={306} />
@@ -32,11 +32,16 @@ const Home: NextPage<Props> = ({ exchanges, page }) => {
 	)
 }
 
-Home.getInitialProps = async ({query}) => {
-	const page = parseInt(query.page as string) || 1
-	const exchanges = await Exchanges.Get(page)
+Home.getInitialProps = async ({ query }) => {
+	try {
+		const page = parseInt(query.page as string) || 1
+		const exchanges = await Exchanges.Get(page)
 
-	return { exchanges, page }
+		return { exchanges, page }
+	} catch (e) {
+		console.log(e)
+		return {exchanges: [], page: 1}
+	}
 }
 
 export default Home

@@ -69,6 +69,7 @@ export async function Details(id: string): Promise<any> {
 
 	return {
 		...exchange,
+		image: exchange.image.replace('small', 'large'),
 		country: {
 			name: country?.name.common,
 			code: country?.cca2,
