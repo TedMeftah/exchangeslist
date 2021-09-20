@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 
 import { Exchanges } from '../data/coingecko'
 import useRouterStatus from '../hooks/useRouterStatus'
+import Head from 'next/head'
 import Exchange from '../components/Exchange'
 import { Pagination } from '../components/Pagination'
 
@@ -25,7 +26,9 @@ const HomePage: NextPage<Props> = ({ exchanges, page, limit, total }) => {
 
 	return (
 		<>
-			
+			<Head>
+				<title>Exchanges List</title>
+			</Head>
 			<ul>
 				{exchanges.map((exchange) => (
 					<Exchange.Summary exchange={exchange} key={exchange.id} />
