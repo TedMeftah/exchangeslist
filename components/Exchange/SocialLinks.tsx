@@ -1,10 +1,11 @@
 interface SocialLinksProps {
 	links: SocialNetworks
+	className?: string
 }
 
-export default function SocialLinks({ links }: SocialLinksProps) {
+export default function SocialLinks({ links, className }: SocialLinksProps) {
 	return (
-		<ul>
+		<ul className={className}>
 			{Object.entries(links).map(([key, link]) => (
 				<li key={key}>
 					<a href={link} target="_blank" rel="noreferrer">
@@ -16,8 +17,11 @@ export default function SocialLinks({ links }: SocialLinksProps) {
 			<style jsx>{`
 				ul {
 					@apply rounded-r flex;
+					li {
+						@apply w-full;
+					}
 					a {
-						@apply bg-gray-700 py-2 px-3 text-gray-500 block;
+						@apply bg-gray-700 w-full py-2 px-3 text-gray-500 block;
 						@apply transition transition-colors;
 
 						&:hover {
@@ -37,7 +41,7 @@ export default function SocialLinks({ links }: SocialLinksProps) {
 						}
 
 						svg {
-							@apply h-5 fill-current w-5;
+							@apply mx-auto h-5 fill-current w-5;
 						}
 					}
 				}

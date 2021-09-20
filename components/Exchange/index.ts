@@ -1,7 +1,7 @@
-import Card from './Card'
+import Summary from './Summary'
 import Logo from './Logo'
 import SocialLinks from './SocialLinks'
 
-const Exchange = { Card, Logo, SocialLinks }
+const Exchange = { Summary, Logo, SocialLinks }
 
 export default Exchange

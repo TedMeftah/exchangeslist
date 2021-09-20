@@ -1,9 +1,9 @@
 import type { NextPage } from 'next'
 
-import Exchange from '../components/Exchange'
-import { Pagination } from '../components/Pagination'
 import { Exchanges } from '../data/coingecko'
 import useRouterStatus from '../hooks/useRouterStatus'
+import Exchange from '../components/Exchange'
+import { Pagination } from '../components/Pagination'
 
 interface Props {
 	exchanges: ExchangeSummary[]
@@ -25,12 +25,18 @@ const HomePage: NextPage<Props> = ({ exchanges, page, limit, total }) => {
 
 	return (
 		<>
-			<ul className="mx-auto max-w-4xl grid p-4 gap-4 grid-cols-1 md:(grid-cols-2)">
+			
+			<ul>
 				{exchanges.map((exchange) => (
-					<Exchange.Card exchange={exchange} key={exchange.id} />
+					<Exchange.Summary exchange={exchange} key={exchange.id} />
 				))}
 			</ul>
 			<Pagination key={page} current={page} total={total} />
+			<style jsx>{`
+				ul {
+					@apply mx-auto max-w-4xl grid p-4 gap-4 grid-cols-1 md:(grid-cols-2);
+				}
+			`}</style>
 		</>
 	)
 }
