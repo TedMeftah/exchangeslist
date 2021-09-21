@@ -56,7 +56,7 @@ export class Pagination extends Component<Props, state> {
 						return (
 							<li key={j}>
 								<Link href={`?page=${page}`}>
-									<a className={this.state.current === page ? 'active' : ''}>
+									<a className={this.state.current === page ? 'highlight' : ''}>
 										{page.toString().padStart(2, '0')}
 									</a>
 								</Link>
@@ -80,7 +80,7 @@ export class Pagination extends Component<Props, state> {
 								@apply bg-gray-700 text-gray-400;
 							}
 
-							&.active {
+							&.highlight {
 								@apply pointer-events-none;
 								@apply bg-blue-900 ring-inset ring-blue-700 ring-1 text-blue-400;
 							}
