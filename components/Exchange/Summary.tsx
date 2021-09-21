@@ -21,7 +21,9 @@ export default function Summary({ exchange }: Props) {
 							{exchange.country}
 						</p>
 					</div>
-					<span className="rank">#{exchange.rank.toString().padStart(3, '0')}</span>
+					<span className="rank">
+						{exchange.rank ? '---' : `#${exchange.rank.toString().padStart(3, '0')}`}
+					</span>
 				</a>
 			</Link>
 

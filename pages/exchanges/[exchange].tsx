@@ -1,17 +1,35 @@
 import type { NextPage } from 'next'
 
 import { Exchanges } from '../../data/coingecko'
-import { removeUndefined } from '../../helpers'
+import { removeUndefined, wait } from '../../helpers'
 
 import Head from 'next/head'
 import { ExternalLinkIcon, GlobeAltIcon } from '@heroicons/react/solid'
 import Exchange from '../../components/Exchange'
+import { useRouter } from 'next/router'
 
 interface Props {
 	exchange: ExchangeDetails
 }
 
+function renderInfo(exchange: ExchangeDetails) {
+	if (exchange.country) {
+		return (
+			<>
+				<GlobeAltIcon className="h-4 mr-1 w-4" />
+				{exchange.country.name}
+				{exchange.yearEstablished && `, ${exchange.yearEstablished}`}
+			</>
+		)
+	}
+
+	return <>{exchange.yearEstablished}</>
+}
+
 const ExchangePage: NextPage<Props> = ({ exchange }) => {
+    const router = useRouter()
+    if (router.isFallback) return <></>
+    
 	return (
 		<>
 			<Head>
@@ -24,15 +42,10 @@ const ExchangePage: NextPage<Props> = ({ exchange }) => {
 					<div className="info">
 						<h1>
 							{exchange.name}
-							<span>#{exchange.rank.toString().padStart(3, '0')}</span>
+							{exchange.rank && <span>#{exchange.rank.toString().padStart(3, '0')}</span>}
 						</h1>
 
-						<p>
-							{exchange.country?.name && <GlobeAltIcon className="h-4 mr-1 w-4" />}
-							{exchange.country?.name}
-							{exchange.country?.name && exchange.yearEstablished && ', '}
-							{exchange.yearEstablished}
-						</p>
+						<p>{renderInfo(exchange)}</p>
 					</div>
 
 					<div className="navigation">
@@ -44,11 +57,7 @@ const ExchangePage: NextPage<Props> = ({ exchange }) => {
 					</div>
 				</div>
 
-				<p className="content">
-					Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo, voluptates nisi
-					velit dolorem neque, eum, ratione eligendi impedit animi officiis libero
-					recusandae cum! Repellendus iste sed voluptas ut odit eaque.
-				</p>
+				<p className="content">{exchange.description}</p>
 
 				<style jsx>{`
 					.container {
@@ -84,12 +93,12 @@ const ExchangePage: NextPage<Props> = ({ exchange }) => {
 							@apply bg-lime-400;
 						}
 					}
-                    .content {
-                        @apply text-lg text-gray-400;
-                    }
+					.content {
+						@apply text-lg text-gray-400;
+					}
 					@screen md {
 						.container {
-							@apply mt-20 p-6;
+							@apply mx-4 mt-20 p-6;
 						}
 						.header {
 							@apply flex;
@@ -124,6 +133,9 @@ const ExchangePage: NextPage<Props> = ({ exchange }) => {
 export async function getStaticProps<Props>(context: { params: any }) {
 	try {
 		const exchange = await Exchanges.Details(context.params.exchange)
+
+		// add delay between requests to avoid hitting rate limit while building the pages
+		await wait(2000)
 		return {
 			props: { exchange: removeUndefined(exchange) }
 		}

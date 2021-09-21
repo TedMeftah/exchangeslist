@@ -7,3 +7,10 @@ export function removeUndefined<T>(obj: T): T {
 		Object.entries(obj).filter(([, value]) => value !== undefined)
 	) as T
 }
+
+/**
+ * Return a promis that resolves after the specified dealy
+ */
+export async function wait(delay: number) {
+	return await new Promise((resolve) => setTimeout(resolve, delay))
+}
