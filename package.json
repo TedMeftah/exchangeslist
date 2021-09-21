@@ -5,10 +5,9 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
-		"start": "next start",
 		"lint": "next lint",
 		"format": "prettier --write .",
-		"test": "cypress open"
+		"e2e": "cypress open"
 	},
 	"dependencies": {
 		"@heroicons/react": "^1.0.4",
