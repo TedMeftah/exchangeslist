@@ -39,7 +39,7 @@ const HomePage: NextPage<Props> = ({ exchanges, page, limit, total }) => {
 			<Pagination key={page} current={page} total={total} />
 			<style jsx>{`
 				ul {
-					@apply mx-auto max-w-4xl grid p-4 gap-4 grid-cols-1 md:(grid-cols-2);
+					@apply mx-auto max-w-4xl grid gap-4 grid-cols-1 md:(grid-cols-2);
 				}
 			`}</style>
 		</>

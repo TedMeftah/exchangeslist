@@ -62,7 +62,7 @@ const ExchangePage: NextPage<Props> = ({ exchange }) => {
 				<style jsx>{`
 					.container {
 						@apply rounded bg-gray-700 border-gray-600 border-1 shadow-lg p-4 items-center relative;
-						@apply mx-auto mt-10 max-w-4xl;
+						@apply mx-auto mt-10 w-full max-w-4xl;
 					}
 					.container :global(.logo) {
 						@apply rounded-full h-24 w-24 sm:h-30 sm:w-30;
@@ -98,7 +98,7 @@ const ExchangePage: NextPage<Props> = ({ exchange }) => {
 					}
 					@screen md {
 						.container {
-							@apply mx-4 mt-20 p-6;
+							@apply mt-20 p-6;
 						}
 						.header {
 							@apply flex;
