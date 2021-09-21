@@ -50,7 +50,7 @@ export class Pagination extends Component<Props, state> {
 				<ul>
 					{this.generate().map((page, j) => {
 						if (page === '...') {
-							return <span>...</span>
+							return <span key={j}>...</span>
 						}
 
 						return (
