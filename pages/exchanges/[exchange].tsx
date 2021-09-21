@@ -4,7 +4,7 @@ import { Exchanges } from '../../data/coingecko'
 import { removeUndefined } from '../../helpers'
 
 import Head from 'next/head'
-import { ExternalLinkIcon } from '@heroicons/react/solid'
+import { ExternalLinkIcon, GlobeAltIcon } from '@heroicons/react/solid'
 import Exchange from '../../components/Exchange'
 
 interface Props {
@@ -17,44 +17,105 @@ const ExchangePage: NextPage<Props> = ({ exchange }) => {
 			<Head>
 				<title>{exchange.name} | Exchanges List</title>
 			</Head>
-			<div className="rounded mx-auto bg-gray-500 shadow-lg mt-16 max-w-4xl p-4">
-				<div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-					<div className="-mt-12 sm:flex sm:space-x-5 sm:-mt-16 sm:items-end">
-						<div className="flex">
-							{exchange.image && (
-								<Exchange.Logo
-									className="rounded-full h-24 w-24 sm:h-32 sm:w-32"
-									src={exchange.image}
-									alt={exchange.name}
-								/>
-							)}
-						</div>
-						<div className="mt-6 sm:flex sm:(space-x-6 flex-1 min-w-0 pb-1 items-center justify-end) ">
-							<div className="flex-1 mt-6 min-w-0 sm:hidden md:block">
-								<h1 className="font-bold text-2xl text-gray-900 truncate">
-									{exchange.name}
-								</h1>
-							</div>
+			<div className="container">
+				<div className="header">
+					<Exchange.Logo className="logo" src={exchange.image} alt={exchange.name} />
 
-							<div className="flex flex-col justify-stretch sm:flex-row sm:space-y-0 sm:space-x-4">
-								<a
-									className="rounded flex font-semibold bg-green-600 text-sm py-2 px-3 text-green-900 justify-center items-center sm:oreder-2"
-									target="_blank"
-									rel="noreferrer"
-									href={exchange.url}
-								>
-									<ExternalLinkIcon className="h-4 mr-1 w-4" aria-hidden="true" />
-									Visit Now
-								</a>
-								<Exchange.SocialLinks links={exchange.links} className="sm:order-1" />
-							</div>
-						</div>
+					<div className="info">
+						<h1>
+							{exchange.name}
+							<span>#{exchange.rank.toString().padStart(3, '0')}</span>
+						</h1>
+
+						<p>
+							{exchange.country?.name && <GlobeAltIcon className="h-4 mr-1 w-4" />}
+							{exchange.country?.name}
+							{exchange.country?.name && exchange.yearEstablished && ', '}
+							{exchange.yearEstablished}
+						</p>
 					</div>
-					<div className="flex-1 mt-6 min-w-0 hidden sm:block md:hidden">
-						<h1 className="font-bold text-2xl text-gray-900 truncate">{exchange.name}</h1>
+
+					<div className="navigation">
+						<a className="button" target="_blank" rel="noreferrer" href={exchange.url}>
+							<ExternalLinkIcon className="h-4 mr-1 w-4" aria-hidden="true" />
+							Visit Now
+						</a>
+						<Exchange.SocialLinks links={exchange.links} />
 					</div>
-					<div>{exchange.description}</div>
 				</div>
+
+				<p className="content">
+					Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo, voluptates nisi
+					velit dolorem neque, eum, ratione eligendi impedit animi officiis libero
+					recusandae cum! Repellendus iste sed voluptas ut odit eaque.
+				</p>
+
+				<style jsx>{`
+					.container {
+						@apply rounded bg-gray-700 border-gray-600 border-1 shadow-lg p-4 items-center relative;
+						@apply mx-auto mt-10 max-w-4xl;
+					}
+					.container :global(.logo) {
+						@apply rounded-full h-24 w-24 sm:h-30 sm:w-30;
+						@apply mx-auto -mt-10;
+					}
+					.header {
+						@apply mb-4;
+					}
+					.info {
+						@apply my-4;
+						h1 {
+							@apply font-bold tracking-wider text-2xl text-gray-200;
+							@apply text-center;
+							& span {
+								@apply font-light text-gray-400;
+							}
+						}
+						p {
+							@apply flex text-gray-500 items-center justify-center;
+						}
+					}
+
+					.button {
+						@apply rounded flex font-semibold bg-lime-500 ring-inset text-sm py-2 px-3 ring-lime-400 ring-1 text-green-900 justify-center items-center;
+						@apply transition-colors;
+						@apply mb-3;
+						&:hover {
+							@apply bg-lime-400;
+						}
+					}
+                    .content {
+                        @apply text-lg text-gray-400;
+                    }
+					@screen md {
+						.container {
+							@apply mt-20 p-6;
+						}
+						.header {
+							@apply flex;
+						}
+						.info {
+							@apply mr-auto my-0 ml-5;
+							h1 {
+								@apply text-left;
+							}
+							p {
+								@apply justify-start;
+							}
+						}
+
+						.button {
+							@apply order-2 mb-0 ml-2;
+						}
+
+						.navigation {
+							@apply flex items-start;
+						}
+						.container :global(.logo) {
+							@apply mx-0 -mt-15;
+						}
+					}
+				`}</style>
 			</div>
 		</>
 	)
@@ -76,7 +137,7 @@ export async function getStaticPaths() {
 		const ids = await Exchanges.List()
 		return {
 			paths: ids.map((id) => ({ params: { exchange: id } })),
-			fallback: false
+			fallback: true
 		}
 	} catch {
 		return {

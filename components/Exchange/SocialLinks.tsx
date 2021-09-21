@@ -21,15 +21,15 @@ export default function SocialLinks({ links, className }: SocialLinksProps) {
 						@apply w-full;
 					}
 					a {
-						@apply bg-gray-700 w-full py-2 px-3 text-gray-500 block;
+						@apply bg-gray-800 w-full py-2 px-3 text-gray-500 block;
 						@apply transition transition-colors;
 
 						&:hover {
-							@apply bg-gray-600 text-gray-400;
+							@apply bg-gray-900 text-gray-400;
 						}
 
 						&:active {
-							@apply bg-gray-800 text-gray-500;
+							@apply text-gray-500;
 						}
 
 						li:last-child & {
