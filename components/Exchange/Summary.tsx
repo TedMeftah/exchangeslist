@@ -8,12 +8,12 @@ interface Props {
 	exchange: ExchangeSummary
 }
 
-export default function ExchangeCard({ exchange }: Props) {
+export default function Summary({ exchange }: Props) {
 	return (
 		<>
 			<Link href={`/exchanges/${exchange.id}`}>
 				<a>
-					<Logo src={exchange.image} alt={exchange.name} className="h-15 w-15" />
+					<Logo src={exchange.image} alt={exchange.name} className="h-16 w-16" />
 					<div className="ml-5">
 						<h3 className="">{exchange.name}</h3>
 						<p>
@@ -27,7 +27,7 @@ export default function ExchangeCard({ exchange }: Props) {
 
 			<style jsx>{`
 				a {
-					@apply rounded flex bg-gray-700 border-gray-600 border-1 shadow-lg p-4 items-center overflow-hidden relative;
+					@apply rounded flex bg-gray-700 shadow-lg ring-inset p-4 ring-gray-600 ring-1 items-center overflow-hidden relative;
 					@apply transform transition-transform scale-100;
 					&:hover {
 						@apply transform scale-103;

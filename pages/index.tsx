@@ -20,10 +20,6 @@ const HomePage: NextPage<Props> = ({ exchanges, page, limit, total }) => {
 		return <p>something wehnt wrong {error}</p>
 	}
 
-	if (isLoading) {
-		return <p>Loading...</p>
-	}
-
 	return (
 		<>
 			<Head>
@@ -32,7 +28,11 @@ const HomePage: NextPage<Props> = ({ exchanges, page, limit, total }) => {
 			<ul>
 				{exchanges.map((exchange) => (
 					<li key={exchange.id}>
-						<Exchange.Summary exchange={exchange} />
+						{isLoading ? (
+							<Exchange.LoadingSummary />
+						) : (
+							<Exchange.Summary exchange={exchange} />
+						)}
 					</li>
 				))}
 			</ul>
