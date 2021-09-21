@@ -14,9 +14,9 @@ export default function Logo({ src, alt, className }: Props) {
 			</mask>
 			<circle fill="white" mask="url(#mask)" cx="50" cy="50" r="49" />
 			<foreignObject mask="url(#mask)" x="0" y="0" width="100%" height="100%">
-				{src && (
-					<Image className="rounded-full" src={src} alt={alt} width={100} height={100} />
-				)}
+				{/* it's better to use the next/image compnent but it has a bug when it's nested in SVG foreignObject */}
+				{/* eslint-disable-next-line @next/next/no-img-element */}
+				{src && <img src={src} alt={alt} width={100} height={100} />}
 			</foreignObject>
 			<circle
 				strokeOpacity="0.4"
