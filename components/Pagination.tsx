@@ -67,7 +67,7 @@ export class Pagination extends Component<Props, state> {
 				<style jsx>{`
 					ul {
 						@apply cursor-default flex py-4 px-8 justify-center select-none;
-                        
+
 						span,
 						a {
 							@apply bg-gray-800 py-2 px-3 text-gray-500 leading-6 block;
