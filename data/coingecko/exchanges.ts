@@ -1,5 +1,5 @@
 import Countries from 'world-countries'
-import { isURL } from '../../lib/validations'
+import { isURL } from '../../helpers/validate'
 
 const BASE_URL = 'https://api.coingecko.com/api/v3/exchanges'
 

@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 
 import { Exchanges } from '../../data/coingecko'
-import { removeUndefined } from '../../lib/helpers'
+import { removeUndefined } from '../../helpers'
 
 import Head from 'next/head'
 import { ExternalLinkIcon } from '@heroicons/react/solid'

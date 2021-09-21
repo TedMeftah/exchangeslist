@@ -7,5 +7,3 @@ export function removeUndefined<T>(obj: T): T {
 		Object.entries(obj).filter(([, value]) => value !== undefined)
 	) as T
 }
-
-removeUndefined
